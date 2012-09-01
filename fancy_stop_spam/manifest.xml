@@ -4,7 +4,7 @@
 <extension engine="1.0">
 	<id>fancy_stop_spam</id>
 	<title>Fancy Stop SPAM</title>
-	<version>1.4.72</version>
+	<version>1.4.73</version>
 	<description>Antispam system for PunBB 1.4</description>
 	<author>dimka.linux@gmail.com</author>
 
@@ -190,7 +190,10 @@
 		]]></hook>
 
 		<hook id="rg_register_form_submitted"><![CDATA[
-			$fancy_stop_spam->triggerEvent('RegisterFormSubmited');
+			$fancy_stop_spam_event_data = array(
+				'ip'       => get_remote_address()
+			);
+			$fancy_stop_spam->triggerEvent('RegisterFormSubmited', $fancy_stop_spam_event_data);
 		]]></hook>
 
 		<hook id="rg_register_end_validation"><![CDATA[

@@ -38,7 +38,7 @@ class FancyStopSpamDbLogger
                             )
         );
 
-        $this->db->query_build($query, TRUE) or error(__FILE__, __LINE__);
+        $this->db->query_build($query) or error(__FILE__, __LINE__);
     }
 
     private function getEventName($event)

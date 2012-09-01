@@ -62,40 +62,42 @@ abstract class FancyStopSpamPlugin
     public function eventPostFormSubmited(array $data) {}
     public function eventEditFormValidation(array $data)
     {
-        if (!isset($data['user']) || !is_array($data['user'])) {
-            error(sprintf($this->language['Error event bad data'], 'user', 'EditFormValidation'));
-        }
-
-        if (!isset($data['message'])) {
-            error(sprintf($this->language['Error event bad data'], 'message', 'EditFormValidation'));
-        }
+        $requiredElements = array('user', 'message');
+        $this->checkEventData($data, 'RegisterFormValidation', $requiredElements);
     }
 
     public function eventPostFormValidation(array $data)
     {
-        if (!isset($data['user']) || !is_array($data['user'])) {
-            error(sprintf($this->language['Error event bad data'], 'user', 'PostFormValidation'));
-        }
-
-        if (!isset($data['message'])) {
-            error(sprintf($this->language['Error event bad data'], 'message', 'PostFormValidation'));
-        }
+        $requiredElements = array('user', 'message');
+        $this->checkEventData($data, 'RegisterFormValidation', $requiredElements);
     }
 
-    public function eventRegisterFormSubmited(array $data) {}
-    public function eventRegisterFormValidation(array $data) {}
+    public function eventRegisterFormSubmited(array $data)
+    {
+        $requiredElements = array('ip');
+        $this->checkEventData($data, 'RegisterFormSubmited', $requiredElements);
+    }
 
-    public function eventUserProfile(array $data) {}
+    public function eventRegisterFormValidation(array $data)
+    {
+        $requiredElements = array('username', 'email', 'ip');
+        $this->checkEventData($data, 'RegisterFormValidation', $requiredElements);
+    }
+
+    public function eventUserProfile(array $data)
+    {
+        $requiredElements = array('user');
+        $this->checkEventData($data, 'UserProfile', $requiredElements);
+    }
 
     protected function addValidationError($error)
     {
-        if (!isset($GLOBALS['errors']) || !is_array($GLOBALS['errors'])) {
-            error("ERROR"); // FIXME
+        if (isset($GLOBALS['errors']) && is_array($GLOBALS['errors'])) {
+            $GLOBALS['errors'][] = $error;
+        } else {
+            message($error);
         }
-
-        $GLOBALS['errors'][] = $error;
     }
-
 
     public function saveBooleanFormOptions(array $form, $optionsName) {
         $form[$optionsName] = (isset($form[$optionsName]) && $form[$optionsName] == '1')
@@ -125,5 +127,18 @@ abstract class FancyStopSpamPlugin
 
     protected function pluginEnabled($pluginId) {
         return ($this->config['o_fancy_stop_spam_plugin_enabled_' . $pluginId] == '1');
+    }
+
+    private function checkEventData(array $data, $eventName, array $requiredElements = array())
+    {
+        foreach ($requiredElements as $element) {
+            if (!isset($data[$element])) {
+                error(sprintf(
+                    $this->language['Error event bad data'],
+                    forum_htmlencode($element),
+                    forum_htmlencode('PostFormValidation')
+                ));
+            }
+        }
     }
 }

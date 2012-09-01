@@ -11,7 +11,9 @@ class FancyStopSpamPluginMaxLinks extends FancyStopSpamPlugin
     const NAME    = 'Max Links';
     const VERSION = '1.0 (2012.08.27)';
 
-    const USER_MAX_POSTS_FOR_CHECK = 3;
+    const USER_MAX_POSTS_FOR_CHECK          = 3;
+    const EVENT_TOO_MANY_LINKS_IN_POST_FORM = 1;
+    const EVENT_TOO_MANY_LINKS_IN_EDIT_FORM = 2;
 
     public function getName()
     {
@@ -102,6 +104,14 @@ class FancyStopSpamPluginMaxLinks extends FancyStopSpamPlugin
 
         if ($this->isMayBeSpammer($data['user'])) {
             if ($this->isTooManyLinks($data['user'], $data['message'])) {
+                $this->logger->log(
+                    self::ID,
+                    self::EVENT_TOO_MANY_LINKS_IN_POST_FORM,
+                    $data['user']['id'],
+                    $data['ip'],
+                    $data['email']
+                );
+
                 $this->addValidationError(sprintf(
                     $this->language['Error too many links'],
                     $this->getAllowedLinksCount($data['user'])
@@ -113,8 +123,17 @@ class FancyStopSpamPluginMaxLinks extends FancyStopSpamPlugin
     public function eventEditFormValidation(array $data)
     {
         parent::eventEditFormValidation($data);
+
         if ($this->isMayBeSpammer($data['user'])) {
             if ($this->isTooManyLinks($data['user'], $data['message'])) {
+                $this->logger->log(
+                    self::ID,
+                    self::EVENT_TOO_MANY_LINKS_IN_EDIT_FORM,
+                    $data['user']['id'],
+                    $data['ip'],
+                    $data['email']
+                );
+
                 $this->addValidationError(sprintf(
                     $this->language['Error too many links'],
                     $this->getAllowedLinksCount($data['user'])

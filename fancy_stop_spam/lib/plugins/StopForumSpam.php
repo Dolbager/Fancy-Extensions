@@ -16,8 +16,9 @@ class FancyStopSpamPluginStopForumSpam extends FancyStopSpamPlugin
     const LIFETIME_IP_1_FREQ_ACTIVITY = 432000;     // 5 days
     const LIFETIME_IP_ACTIVITY        = 15552000;   // 180 days
 
-    const EVENT_SPAM_IP    = 20;
-    const EVENT_SPAM_EMAIL = 21;
+    const EVENT_ERROR      = 1;
+    const EVENT_SPAM_IP    = 2;
+    const EVENT_SPAM_EMAIL = 3;
 
     public function getName()
     {
@@ -88,15 +89,15 @@ class FancyStopSpamPluginStopForumSpam extends FancyStopSpamPlugin
         if ($stopForumSpam->isSuccessfullResponse($response)) {
             if ($this->isSpamIp($response)) {
                 $this->addValidationError($this->language['Error SFS spam IP']);
-                $this->logger->log(self::ID, self::EVENT_SPAM_IP, FORUM_GUEST, $ip, $email);
+                $this->logger->log(self::ID, self::EVENT_SPAM_IP, FORUM_GUEST, $data['ip'], $data['email']);
             }
 
             if ($this->isSpamEmail($response)) {
                 $this->addValidationError($this->language['Error SFS spam email']);
-                $this->logger->log(self::ID, self::EVENT_SPAM_EMAIL, FORUM_GUEST, $ip, $email);
+                $this->logger->log(self::ID, self::EVENT_SPAM_EMAIL, FORUM_GUEST, $data['ip'], $data['email']);
             }
         } else {
-            // Log errors
+            $this->logger->log(self::ID, self::EVENT_ERROR, FORUM_GUEST, $data['ip']);
         }
     }
 
