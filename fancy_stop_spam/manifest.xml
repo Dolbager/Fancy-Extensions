@@ -4,7 +4,7 @@
 <extension engine="1.0">
 	<id>fancy_stop_spam</id>
 	<title>Fancy Stop SPAM</title>
-	<version>1.4.73</version>
+	<version>1.4.75</version>
 	<description>Antispam system for PunBB 1.4</description>
 	<author>dimka.linux@gmail.com</author>
 
@@ -136,8 +136,10 @@
 				}
 			}
 
-			include $ext_info['path'].'/lib/FancyStopSpam.php';
-			$fancy_stop_spam = new FancyStopSpam($lang_fancy_stop_spam, $forum_config, $forum_db);
+			include $ext_info['path'] . '/lib/Logger/Storage/Db.php';
+			include $ext_info['path'] .'/lib/FancyStopSpam.php';
+			$fancy_stop_spam_log_storage = new FancyStopSpamLogStorageDb($forum_config, $forum_db);
+			$fancy_stop_spam = new FancyStopSpam($lang_fancy_stop_spam, $forum_config, $forum_db, $fancy_stop_spam_log_storage);
 		]]></hook>
 
 		<hook id="hd_head"><![CDATA[

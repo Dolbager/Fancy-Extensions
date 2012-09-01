@@ -4,7 +4,7 @@
 if (!defined('FORUM'))
     exit;
 
-require dirname(__FILE__) . '/DbLogger.php';
+require dirname(__FILE__) . '/Logger/Logger.php';
 require dirname(__FILE__) . '/Info.php';
 require dirname(__FILE__) . '/Plugin.php';
 require dirname(__FILE__) . '/PluginFactory.php';
@@ -17,11 +17,11 @@ class FancyStopSpam
     private $logger;
     private $plugins;
 
-    public function __construct(array $language, array $config, $db) {
-        $this->language      = $language;
-        $this->config        = $config;
-        $this->db            = $db;
-        $this->logger        = new FancyStopSpamDbLogger($language, $config, $db);
+    public function __construct(array $language, array $config, DBLayer $db, $logStorage) {
+        $this->language = $language;
+        $this->config   = $config;
+        $this->db       = $db;
+        $this->logger   = new FancyStopSpamLogger($logStorage);
 
         $this->initPlugins();
     }
