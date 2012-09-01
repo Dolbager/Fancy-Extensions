@@ -1,8 +1,9 @@
 <?php
 
 // Make sure no one attempts to run this script "directly"
-if (!defined('FORUM'))
+if (!defined('FORUM')) {
     exit;
+}
 
 require dirname(__FILE__) . '/Logger/Logger.php';
 require dirname(__FILE__) . '/Info.php';
@@ -17,7 +18,8 @@ class FancyStopSpam
     private $logger;
     private $plugins;
 
-    public function __construct(array $language, array $config, DBLayer $db, $logStorage) {
+    public function __construct(array $language, array $config, DBLayer $db, $logStorage)
+    {
         $this->language = $language;
         $this->config   = $config;
         $this->db       = $db;
@@ -26,7 +28,8 @@ class FancyStopSpam
         $this->initPlugins();
     }
 
-    public function getPlugin($pluginName) {
+    public function getPlugin($pluginName)
+    {
         if (isset($this->plugins[$pluginName])) {
             return $this->plugins[$pluginName];
         }
@@ -34,11 +37,13 @@ class FancyStopSpam
         error('Invalid plugin');
     }
 
-    public function getAvailablePlugins() {
+    public function getAvailablePlugins()
+    {
         return $this->plugins;
     }
 
-    public function triggerEvent($eventName, array $data = array()) {
+    public function triggerEvent($eventName, array $data = array())
+    {
         $method = 'event' . $eventName;
         foreach ($this->plugins as $plugin) {
             if ($plugin->isEnabled() && method_exists($plugin, $method)) {
@@ -47,11 +52,13 @@ class FancyStopSpam
         }
     }
 
-    public function getInfo() {
+    public function getInfo()
+    {
         return new FancyStopSpamInfo($this->language, $this->config, $this->db);
     }
 
-    private function initPlugins() {
+    private function initPlugins()
+    {
         $pluginFactory = new FancyStopSpamPluginFactory(
             $this->language,
             $this->config,
