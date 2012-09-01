@@ -45,7 +45,7 @@ abstract class FancyStopSpamPlugin
                                id="fld<?php echo ++$forum_page['fld_count'] ?>"
                                name="<?php echo $inputName ?>"
                                value="1"
-                               <?php if ($this->config['o_fancy_stop_spam_plugin_enabled_' . ${pluginId}] == '1') echo ' checked="checked"'; ?>
+                               <?php if ($this->config['o_fancy_stop_spam_plugin_enabled_' . $pluginId] == '1') echo ' checked="checked"'; ?>
                         />
                     </span>
                     <label for="fld<?php echo $forum_page['fld_count'] ?>"><?php echo $label ?></label>

@@ -47,7 +47,6 @@
         $lang_fancy_stop_spam['Admin submenu settings']
     );
 
-    define('FORUM_PAGE', 'admin-fancy_stop_spam_settings');
     require FORUM_ROOT.'header.php';
     ob_start();
 ?>
@@ -75,14 +74,14 @@
                     ?>
                     </div>
                 </fieldset>
-                <?php
-                    foreach ($fancy_stop_spam->getAvailablePlugins() as $plugin) {
-                        if ($plugin->isEnabled()) {
-                            $forum_page = $plugin->renderOptionsBlock($forum_page);
-                        }
-                    }
-                ?>
             </fieldset>
+            <?php
+                foreach ($fancy_stop_spam->getAvailablePlugins() as $plugin) {
+                    if ($plugin->isEnabled()) {
+                        $forum_page = $plugin->renderOptionsBlock($forum_page);
+                    }
+                }
+            ?>
 
             <div class="frm-buttons">
                 <span class="submit primary">

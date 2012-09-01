@@ -4,7 +4,6 @@
 if (!defined('FORUM'))
     exit;
 
-require dirname(__FILE__) . '/Event.php';
 require dirname(__FILE__) . '/DbLogger.php';
 require dirname(__FILE__) . '/Info.php';
 require dirname(__FILE__) . '/Plugin.php';
