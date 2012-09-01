@@ -47,7 +47,7 @@ class FancyStopSpamPluginFormFillTime extends FancyStopSpamPlugin
         } else {
             $fillTime = time() - (integer) $_POST['form_fancy_stop_spam_time'];
             if ($fillTime < self::FORM_FILL_MIN_TIME) {
-                $errors[] = $this->language['Register bot timeout message'];
+                $this->addValidationError($this->language['Register bot timeout message']);
             }
         }
     }
