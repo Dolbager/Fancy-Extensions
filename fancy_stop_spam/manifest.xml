@@ -277,7 +277,6 @@
 			}
 		]]></hook>
 
-
 		<hook id="pf_change_details_modify_main_menu"><![CDATA[
 			if ($forum_user['g_id'] == FORUM_ADMIN) {
 				if (isset($forum_page['main_menu']['admin'])) {

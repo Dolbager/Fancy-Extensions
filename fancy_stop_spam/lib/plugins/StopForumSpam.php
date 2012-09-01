@@ -84,14 +84,14 @@ class FancyStopSpamPluginStopForumSpam extends FancyStopSpamPlugin
 
         if ($stopForumSpam->isSuccessfullResponse($response)) {
             if ($this->isSpamIp($response)) {
-
+                $errors[] = $this->language['Error SFS spam IP'];
             }
 
             if ($this->isSpamEmail($response)) {
-
+                $errors[] = $this->language['Error SFS spam email'];
             }
         } else {
-
+            // Log errors
         }
 
         return $errors;
