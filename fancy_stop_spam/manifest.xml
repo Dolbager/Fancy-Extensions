@@ -4,7 +4,7 @@
 <extension engine="1.0">
 	<id>fancy_stop_spam</id>
 	<title>Fancy Stop SPAM</title>
-	<version>1.4.65</version>
+	<version>1.4.72</version>
 	<description>Antispam system for PunBB 1.4</description>
 	<author>dimka.linux@gmail.com</author>
 
@@ -193,11 +193,12 @@
 		]]></hook>
 
 		<hook id="rg_register_end_validation"><![CDATA[
-			if (empty($errors)) {
-				if ($fancy_stop_spam->getPlugin('stop_forum_spam')->isEnabled()) {
-    				$errors = $fancy_stop_spam->getPlugin('stop_forum_spam')->check($errors, $email1, get_remote_address());
-				}
-			}
+			$fancy_stop_spam_event_data = array(
+				'username' => $username,
+				'email'    => $email1,
+				'ip'       => get_remote_address()
+			);
+			$fancy_stop_spam->triggerEvent('RegisterFormValidation', $fancy_stop_spam_event_data);
 		]]></hook>
 		<!-- ============== REGISTER FORM PART END =============== -->
 
@@ -262,19 +263,19 @@
 		]]></hook>
 
 		<hook id="po_end_validation"><![CDATA[
-			if ($fancy_stop_spam->getPlugin('identical_messages')->isEnabled()) {
-				$errors = $fancy_stop_spam->getPlugin('identical_messages')->check($forum_user, $message, $errors);
-			}
-
-			if ($fancy_stop_spam->getPlugin('max_links')->isEnabled()) {
-				$errors = $fancy_stop_spam->getPlugin('max_links')->check($forum_user, $message, $errors);
-			}
+			$fancy_stop_spam_event_data = array(
+				'user'    => $forum_user,
+				'message' => $message
+			);
+			$fancy_stop_spam->triggerEvent('PostFormValidation', $fancy_stop_spam_event_data);
 		]]></hook>
 
 		<hook id="ed_end_validation"><![CDATA[
-			if ($fancy_stop_spam->getPlugin('max_links')->isEnabled()) {
-				$errors = $fancy_stop_spam->getPlugin('max_links')->check($forum_user, $message, $errors);
-			}
+			$fancy_stop_spam_event_data = array(
+				'user'    => $forum_user,
+				'message' => $message
+			);
+			$fancy_stop_spam->triggerEvent('EditFormValidation', $fancy_stop_spam_event_data);
 		]]></hook>
 
 		<hook id="pf_change_details_modify_main_menu"><![CDATA[

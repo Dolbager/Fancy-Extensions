@@ -60,9 +60,41 @@ abstract class FancyStopSpamPlugin
     }
 
     public function eventPostFormSubmited(array $data) {}
+    public function eventEditFormValidation(array $data)
+    {
+        if (!isset($data['user']) || !is_array($data['user'])) {
+            error(sprintf($this->language['Error event bad data'], 'user', 'EditFormValidation'));
+        }
+
+        if (!isset($data['message'])) {
+            error(sprintf($this->language['Error event bad data'], 'message', 'EditFormValidation'));
+        }
+    }
+
+    public function eventPostFormValidation(array $data)
+    {
+        if (!isset($data['user']) || !is_array($data['user'])) {
+            error(sprintf($this->language['Error event bad data'], 'user', 'PostFormValidation'));
+        }
+
+        if (!isset($data['message'])) {
+            error(sprintf($this->language['Error event bad data'], 'message', 'PostFormValidation'));
+        }
+    }
+
     public function eventRegisterFormSubmited(array $data) {}
-    public function eventChangePasswordKeyFormSubmited(array $data) {}
+    public function eventRegisterFormValidation(array $data) {}
+
     public function eventUserProfile(array $data) {}
+
+    protected function addValidationError($error)
+    {
+        if (!isset($GLOBALS['errors']) || !is_array($GLOBALS['errors'])) {
+            error("ERROR"); // FIXME
+        }
+
+        $GLOBALS['errors'][] = $error;
+    }
 
 
     public function saveBooleanFormOptions(array $form, $optionsName) {

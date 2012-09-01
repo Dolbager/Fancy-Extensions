@@ -74,27 +74,25 @@ class FancyStopSpamPluginStopForumSpam extends FancyStopSpamPlugin
         return $form;
     }
 
-    public function check(array $errors, $email, $ip)
+    public function eventRegisterFormValidation(array $data)
     {
         $stopForumSpam = new FancyStopSpamStopForumSpam;
         $response = $stopForumSpam->request(array(
-            'email' => $email,
-            'ip'    => $ip
+            'email' => $data['email'],
+            'ip'    => $data['ip']
         ));
 
         if ($stopForumSpam->isSuccessfullResponse($response)) {
             if ($this->isSpamIp($response)) {
-                $errors[] = $this->language['Error SFS spam IP'];
+                $this->addValidationError($this->language['Error SFS spam IP']);
             }
 
             if ($this->isSpamEmail($response)) {
-                $errors[] = $this->language['Error SFS spam email'];
+                $this->addValidationError($this->language['Error SFS spam email']);
             }
         } else {
             // Log errors
         }
-
-        return $errors;
     }
 
     public function eventUserProfile(array $data)
