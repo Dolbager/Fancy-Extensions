@@ -19,6 +19,8 @@
 		forum_config_add('o_fancy_stop_spam_plugin_enabled_submit_mark', '1');
 		forum_config_add('o_fancy_stop_spam_plugin_enabled_stop_forum_spam', '1');
 
+		forum_config_add('o_fancy_stop_spam_use_db_logs', '1');
+
 		forum_config_add('o_fancy_stop_spam_settings_max_links', '1');
 		forum_config_add('o_fancy_stop_spam_settings_max_links_for_guest', '1');
 
@@ -65,6 +67,15 @@
 						'datatype'	=> 'SERIAL',
 						'allow_null'	=> false
 					),
+					'source' 		=> array(
+						'datatype'		=> 'VARCHAR(32)',
+						'allow_null'	=> false,
+					),
+					'type'			=>	array(
+						'datatype'	=> 'INT(10)',
+						'allow_null'	=> false,
+						'default'	=> '0',
+					),
 					'user_id'	=>	array(
 						'datatype'	=> 'INT(10)',
 						'allow_null'	=> false,
@@ -75,12 +86,7 @@
 						'allow_null'	=> false,
 						'default'	=>	'0',
 					),
-					'activity_type'	=>	array(
-						'datatype'	=> 'INT(10)',
-						'allow_null'	=> false,
-						'default'	=> '0',
-					),
-					'activity_time'	=>	array(
+					'time'			=>	array(
 						'datatype'	=> 'INT(10) UNSIGNED',
 						'allow_null'	=> false,
 						'default'	=> '0',
@@ -106,7 +112,8 @@
 			'o_fancy_stop_spam_settings_max_links',
 			'o_fancy_stop_spam_settings_max_links_for_guest',
 			'o_fancy_stop_spam_plugin_enabled_stop_forum_spam',
-			'o_fancy_stop_spam_settings_stop_forum_spam_api_key'
+			'o_fancy_stop_spam_settings_stop_forum_spam_api_key',
+			'o_fancy_stop_spam_use_db_logs'
 		));
 
 		$forum_db->drop_table('fancy_stop_spam_identical_posts');
