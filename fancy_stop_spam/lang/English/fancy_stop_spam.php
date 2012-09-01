@@ -11,23 +11,38 @@ $lang_fancy_stop_spam = array(
 	'Enable plugin submit_mark'        => 'Enable form submit mark protection',
 	'Enable plugin stop_forum_spam'    => 'Enable Stop Forum Spam protection',
 
+	'Name'                             => 'Settings for Fancy Stop SPAM',
 	'Settings Name'                    => 'Settings for plugin: %s',
+	'Settings SFS API Key'             => 'API key',
+	'Settings SFS API Key Help'        => 'StopForumSpam API key for report spamers',
 
 	'Error too many links'             => 'Too many links in message. Allowed %s links. Reduce number of links and post it again.',
 	'Error identical message'          => 'Sorry, but you can not post identical messages. Modify message and post it again.',
 	'Error honeypot message'           => 'Sorry, but we think you are bot. You can not activate account on this forum.',
+	'Error SFS spam IP'                => 'Sorry, but your ip-address identified as spammers. You can not register on this forum.',
+	'Error SFS spam email'             => 'Sorry, but your email identified as spam. You can not register on this forum with this email.',
 
-	'SFS email status'					=> 'Stop Forum Spam email',
-	'SFS IP status'					=> 'Stop Forum Spam IP',
+	'SFS email status'                 => 'Stop Forum Spam email',
+	'SFS IP status'                    => 'Stop Forum Spam IP',
 
-
-
-	'Name'                                => 'Settings for Fancy Stop SPAM',
 
 	'First Post Max Links' 				=> 'Links in 1st message',
 	'First Post Max Links Help'			=> 'Max allowed links in first message. If value < 0 — checking disabled.',
 	'First Post Guest Max Links'		=> 'Links in 1st guest message',
 	'First Post Guest Max Links Help'	=> 'Max allowed links in message. If value < 0 — checking disabled.',
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -48,11 +63,8 @@ $lang_fancy_stop_spam = array(
 	'Enable SFS IP'					=> 'Check IP by StopForumSpam',
 
 	'Register bot message'			=> 'Sorry, but we think you are bot. You can not register on this forum.',
-	'Register bot timeout message'	=> 'Sorry, but we think you are bot because you are fill this form too fast. Wait a few seconds and try to submit again.',
-	'Register bot timezone message'	=> 'Sorry, but we think you are bot because you are select timezone UTC−12:00. No human habitations are in this time zone. Select other timezone.',
-	'Register bot sfs email message'	=> 'Sorry, but your email identified as spam. You can not register on this forum.',
 	'Register bot sfs email ip message'	=> 'A spammer was try registered with the same IP address as you within the last hour. To prevent registration flooding, at least an hour has to pass between registrations from the same IP. Sorry for the inconvenience.',
-	'Register bot sfs ip message'	=> 'Sorry, but your ip-address identified as spammers. You can not register on this forum.',
+
 	'Login bot message'				=> 'Sorry, but we think you are bot. You can not login on this forum.',
 	'Post bot message'				=> 'Sorry, but we think you are bot. You can not post message on this forum.',
 
