@@ -4,7 +4,7 @@
 <extension engine="1.0">
 	<id>fancy_stop_spam</id>
 	<title>Fancy Stop SPAM</title>
-	<version>1.4.64</version>
+	<version>1.4.65</version>
 	<description>Antispam system for PunBB 1.4</description>
 	<author>dimka.linux@gmail.com</author>
 
@@ -22,6 +22,8 @@
 
 		forum_config_add('o_fancy_stop_spam_settings_max_links', '1');
 		forum_config_add('o_fancy_stop_spam_settings_max_links_for_guest', '1');
+
+		forum_config_add('o_fancy_stop_spam_settings_stop_forum_spam_api_key', '');
 
 
 		if (!$forum_db->table_exists('fancy_stop_spam_identical_posts'))
@@ -105,7 +107,8 @@
 			'o_fancy_stop_spam_plugin_enabled_submit_mark',
 			'o_fancy_stop_spam_settings_max_links',
 			'o_fancy_stop_spam_settings_max_links_for_guest',
-			'o_fancy_stop_spam_plugin_enabled_stop_forum_spam'
+			'o_fancy_stop_spam_plugin_enabled_stop_forum_spam',
+			'o_fancy_stop_spam_settings_stop_forum_spam_api_key'
 		));
 
 		$forum_db->drop_table('fancy_stop_spam_identical_posts');

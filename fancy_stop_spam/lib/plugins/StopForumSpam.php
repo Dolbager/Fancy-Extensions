@@ -36,9 +36,41 @@ class FancyStopSpamPluginStopForumSpam extends FancyStopSpamPlugin
         return $this->renderMainOptionsBlockHelper($forum_page, self::ID);
     }
 
+    public function renderOptionsBlock(array $forum_page)
+    {
+        $this->renderOptionsBlockHeader($forum_page, $this->getName());
+        ?>
+            <div class="sf-set set<?php echo ++$forum_page['item_count'] ?>">
+                <div class="sf-box text">
+                    <label for="fld<?php echo ++$forum_page['fld_count'] ?>">
+                        <span><?php echo $this->language['Settings SFS API Key'] ?></span>
+                        <small><?php echo $this->language['Settings SFS API Key Help'] ?></small>
+                    </label>
+                    <span class="fld-input">
+                        <input type="text"
+                               id="fld<?php echo $forum_page['fld_count'] ?>"
+                               name="form[fancy_stop_spam_settings_stop_forum_spam_api_key]"
+                               size="35"
+                               maxlength="64"
+                               value="<?php echo forum_htmlencode($this->config['o_fancy_stop_spam_settings_stop_forum_spam_api_key']) ?>"
+                        />
+                    </span>
+                </div>
+            </div>
+        <?php
+        $this->renderOptionsBlockFooter();
+        return $forum_page;
+    }
+
     public function saveOptions(array $form)
     {
         $form = $this->saveBooleanFormOptions($form, 'fancy_stop_spam_plugin_enabled_' . self::ID);
+
+        if (isset($form['fancy_stop_spam_settings_stop_forum_spam_api_key'])) {
+            $form['fancy_stop_spam_settings_stop_forum_spam_api_key'] = substr(
+                forum_trim($form['fancy_stop_spam_settings_stop_forum_spam_api_key']), 0, 64
+            );
+        }
         return $form;
     }
 

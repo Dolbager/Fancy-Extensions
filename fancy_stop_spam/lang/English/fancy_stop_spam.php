@@ -17,8 +17,12 @@ $lang_fancy_stop_spam = array(
 	'Error identical message'          => 'Sorry, but you can not post identical messages. Modify message and post it again.',
 	'Error honeypot message'           => 'Sorry, but we think you are bot. You can not activate account on this forum.',
 
-	'SFS email status'					=> 'Stop Forum Spam email',
-	'SFS IP status'					=> 'Stop Forum Spam IP',
+	'SFS email status'                 => 'Stop Forum Spam email',
+	'SFS IP status'                    => 'Stop Forum Spam IP',
+
+	'Settings SFS API Key'             => 'API key',
+	'Settings SFS API Key Help'        => 'StopForumSpam API key for report spamers',
+
 
 
 
