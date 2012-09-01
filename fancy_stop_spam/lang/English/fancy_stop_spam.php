@@ -22,6 +22,8 @@ $lang_fancy_stop_spam = array(
 	'Error SFS spam IP'                => 'Sorry, but your ip-address identified as spammers. You can not register on this forum.',
 	'Error SFS spam email'             => 'Sorry, but your email identified as spam. You can not register on this forum with this email.',
 	'Error event bad data'			   => 'Bad FancyStopSpam event data: empty "%s" in event "%s"',
+	'Error empty form fill timeout'	   => 'Sorry, but we think you are bot.',
+	'Error small form fill timeout'	   => 'Sorry, but we think you are bot because you are fill this form too fast. Wait a few seconds and try to submit again.',
 
 	'SFS email status'                 => 'Stop Forum Spam email',
 	'SFS IP status'                    => 'Stop Forum Spam IP',
