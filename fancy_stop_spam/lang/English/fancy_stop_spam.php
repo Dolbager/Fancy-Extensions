@@ -21,6 +21,7 @@ $lang_fancy_stop_spam = array(
 	'Error honeypot message'           => 'Sorry, but we think you are bot. You can not activate account on this forum.',
 	'Error SFS spam IP'                => 'Sorry, but your ip-address identified as spammers. You can not register on this forum.',
 	'Error SFS spam email'             => 'Sorry, but your email identified as spam. You can not register on this forum with this email.',
+	'Error event bad data'			   => 'Bad FancyStopSpam event data: empty "%s" in event "%s"',
 
 	'SFS email status'                 => 'Stop Forum Spam email',
 	'SFS IP status'                    => 'Stop Forum Spam IP',

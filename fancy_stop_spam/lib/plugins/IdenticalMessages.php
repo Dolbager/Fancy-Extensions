@@ -41,7 +41,13 @@ class FancyStopSpamPluginIdenticalMessages extends FancyStopSpamPlugin
         return $form;
     }
 
-    public function check(array $user, $message, array $errors) {
+    public function eventPostFormValidation(array $data)
+    {
+        parent::eventPostFormValidation($data);
+
+        $user    = $data['user'];
+        $message = $data['message'];
+
         if ($this->isMayBeSpammer($user) && $this->isMayBeSpamMessage($message)) {
             $this->pruneExpired();
 
@@ -54,11 +60,9 @@ class FancyStopSpamPluginIdenticalMessages extends FancyStopSpamPlugin
 
             $numberOfIdenticalMessages = $this->db->result($result, 0);
             if ($numberOfIdenticalMessages > 0) {
-                $errors[] = $this->language['Error identical message'];
+                $this->addValidationError($this->language['Error identical message']);
             }
         }
-
-        return $errors;
     }
 
     public function addMessage(array $user, array $postInfo, $postId) {

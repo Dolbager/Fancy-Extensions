@@ -96,23 +96,51 @@ class FancyStopSpamPluginMaxLinks extends FancyStopSpamPlugin
         return $form;
     }
 
-    public function check(array $user, $message, array $errors)
+    public function eventPostFormValidation(array $data)
     {
-        $max_links = (integer) $this->config['o_fancy_stop_spam_settings_max_links'];
-        if ($user['is_guest']) {
-            $max_links = (integer) $this->config['o_fancy_stop_spam_settings_max_links_for_guest'];
-        }
+        parent::eventPostFormValidation($data);
 
-        if ($max_links > 0) {
-            if ($this->isMayBeSpammer($user)) {
-                $numberOfLinks = $this->getNumberOfLinksInMessage($message);
-                if ($numberOfLinks > $max_links) {
-                    $errors[] = sprintf($this->language['Error too many links'], $max_links);
-                }
+        if ($this->isMayBeSpammer($data['user'])) {
+            if ($this->isTooManyLinks($data['user'], $data['message'])) {
+                $this->addValidationError(sprintf(
+                    $this->language['Error too many links'],
+                    $this->getAllowedLinksCount($data['user'])
+                ));
             }
         }
+    }
 
-        return $errors;
+    public function eventEditFormValidation(array $data)
+    {
+        parent::eventEditFormValidation($data);
+        if ($this->isMayBeSpammer($data['user'])) {
+            if ($this->isTooManyLinks($data['user'], $data['message'])) {
+                $this->addValidationError(sprintf(
+                    $this->language['Error too many links'],
+                    $this->getAllowedLinksCount($data['user'])
+                ));
+            }
+        }
+    }
+
+    private function isTooManyLinks(array $user, $message)
+    {
+        $maxLinks = $this->getAllowedLinksCount($user);
+        if ($maxLinks > 0) {
+            return ($this->getNumberOfLinksInMessage($message) > $maxLinks);
+        }
+
+        return FALSE;
+    }
+
+    private function getAllowedLinksCount(array $user)
+    {
+        $maxLinks = (integer) $this->config['o_fancy_stop_spam_settings_max_links'];
+        if ($user['is_guest']) {
+            $maxLinks = (integer) $this->config['o_fancy_stop_spam_settings_max_links_for_guest'];
+        }
+
+        return $maxLinks;
     }
 
     private function getNumberOfLinksInMessage($message)
@@ -132,10 +160,6 @@ class FancyStopSpamPluginMaxLinks extends FancyStopSpamPlugin
 
     private function isMayBeSpammer(array $user)
     {
-        if ($user['is_admmod'] || ($user['num_posts'] > self::USER_MAX_POSTS_FOR_CHECK)) {
-            return FALSE;
-        }
-
-        return TRUE;
+        return !($user['is_admmod'] || ($user['num_posts'] > self::USER_MAX_POSTS_FOR_CHECK));
     }
 }
