@@ -14,7 +14,7 @@ $lang_fancy_stop_spam = array(
 	'Name'                             => 'Settings for Fancy Stop SPAM',
 	'Settings Name'                    => 'Settings for plugin: %s',
 	'Settings SFS API Key'             => 'API key',
-	'Settings SFS API Key Help'        => 'StopForumSpam API key for report spamers',
+	'Settings SFS API Key Help'        => 'StopForumSpam API key for reporting spammers. <a class="exthelp" href="http://www.stopforumspam.com/signup">Request new key</a>.',
 
 	'Error too many links'             => 'Too many links in message. Allowed %s links. Reduce number of links and post it again.',
 	'Error identical message'          => 'Sorry, but you can not post identical messages. Modify message and post it again.',
@@ -29,10 +29,10 @@ $lang_fancy_stop_spam = array(
 	'SFS IP status'                    => 'Stop Forum Spam IP',
 
 
-	'First Post Max Links' 				=> 'Links in 1st message',
-	'First Post Max Links Help'			=> 'Max allowed links in first message. If value < 0 — checking disabled.',
-	'First Post Guest Max Links'		=> 'Links in 1st guest message',
-	'First Post Guest Max Links Help'	=> 'Max allowed links in message. If value < 0 — checking disabled.',
+	'First Post Max Links' 				=> 'Links in initial posts',
+	'First Post Max Links Help'			=> 'Max allowed links in initial posts.',
+	'First Post Guest Max Links'		=> 'Links in guest initial posts',
+	'First Post Guest Max Links Help'	=> 'Max allowed links in initial posts.',
 
 
 

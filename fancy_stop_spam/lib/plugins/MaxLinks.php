@@ -83,16 +83,20 @@ class FancyStopSpamPluginMaxLinks extends FancyStopSpamPlugin
     {
         $form = $this->saveBooleanFormOptions($form, 'fancy_stop_spam_plugin_enabled_' . self::ID);
 
-        if (isset($form['fancy_stop_spam_settings_max_links']) && is_numeric($form['fancy_stop_spam_settings_max_links'])) {
-            $form['fancy_stop_spam_settings_max_links'] = (integer) $form['fancy_stop_spam_settings_max_links'];
-        } else {
-            $form['fancy_stop_spam_settings_max_links'] = '1';
+        if (isset($form['fancy_stop_spam_settings_max_links'])) {
+            if (is_numeric($form['fancy_stop_spam_settings_max_links'])) {
+                $form['fancy_stop_spam_settings_max_links'] = (integer) $form['fancy_stop_spam_settings_max_links'];
+            } else {
+                $form['fancy_stop_spam_settings_max_links'] = '1';
+            }
         }
 
-        if (isset($form['fancy_stop_spam_settings_max_links_for_guest']) && is_numeric($form['fancy_stop_spam_settings_max_links_for_guest'])) {
-            $form['fancy_stop_spam_settings_max_links_for_guest'] = (integer) $form['fancy_stop_spam_settings_max_links_for_guest'];
-        } else {
-            $form['fancy_stop_spam_settings_max_links_for_guest'] = '1';
+        if (isset($form['fancy_stop_spam_settings_max_links_for_guest'])) {
+            if (is_numeric($form['fancy_stop_spam_settings_max_links_for_guest'])) {
+                $form['fancy_stop_spam_settings_max_links_for_guest'] = (integer) $form['fancy_stop_spam_settings_max_links_for_guest'];
+            } else {
+                $form['fancy_stop_spam_settings_max_links_for_guest'] = '1';
+            }
         }
 
         return $form;
