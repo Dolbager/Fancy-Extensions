@@ -4,7 +4,7 @@
 <extension engine="1.0">
 	<id>fancy_stop_spam</id>
 	<title>Fancy Stop SPAM</title>
-	<version>1.4.75</version>
+	<version>1.4.77</version>
 	<description>Antispam system for PunBB 1.4</description>
 	<author>dimka.linux@gmail.com</author>
 
@@ -308,7 +308,7 @@
 		]]></hook>
 
 		<hook id="ca_fn_generate_admin_menu_start"><![CDATA[
-			global $lang_fancy_stop_spam;
+			global $lang_fancy_stop_spam, $fancy_stop_spam;
 		]]></hook>
 
 		<!-- Add section to admin menu -->
@@ -348,11 +348,13 @@
 						<a href="'.forum_link($forum_url['fancy_stop_spam_admin_logs']).'">'.$lang_fancy_stop_spam["Admin submenu logs"].'</a>
 					</li>';
 
-				$forum_page['admin_submenu']['fancy_stop_spam_new_users'] = '
-					<li class="'.((FORUM_PAGE == 'admin-fancy_stop_spam_new_users') ? 'active' : 'normal').
-						((empty($forum_page['admin_submenu'])) ? ' first-item' : '').'">
-						<a href="'.forum_link($forum_url['fancy_stop_spam_admin_new_users']).'">'.$lang_fancy_stop_spam["Admin submenu new users"].'</a>
-					</li>';
+				if ($fancy_stop_spam->getPlugin('stop_forum_spam')->isEnabled()) {
+					$forum_page['admin_submenu']['fancy_stop_spam_new_users'] = '
+						<li class="'.((FORUM_PAGE == 'admin-fancy_stop_spam_new_users') ? 'active' : 'normal').
+							((empty($forum_page['admin_submenu'])) ? ' first-item' : '').'">
+							<a href="'.forum_link($forum_url['fancy_stop_spam_admin_new_users']).'">'.$lang_fancy_stop_spam["Admin submenu new users"].'</a>
+						</li>';
+				}
 
 				$forum_page['admin_submenu']['fancy_stop_spam_suspicious_users'] = '
 					<li class="'.((FORUM_PAGE == 'admin-fancy_stop_spam_suspicious_users') ? 'active' : 'normal').
